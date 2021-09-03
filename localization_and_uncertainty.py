@@ -19,7 +19,7 @@ def bayes_filter(bel_x, z,step):
     
     #outputs the likelihood of where the robot is before sensing a wall or door
     if step==0:
-        print("Initial Position: ")
+        print("\nInitial Position: ")
         for key in bel_x:
             print(f"bel(x{step} = {key}) = ", round(bel_x[key],3))
 
@@ -27,7 +27,7 @@ def bayes_filter(bel_x, z,step):
     #number of subplots
     nplt=4
     #subplots size
-    plt.figure(figsize=(10,10))
+    plt.figure(figsize=(10,8))
     w=0.5
     #first subplot of the probability of the robot's position at step =0
     plt.subplot(nplt,1,1)
@@ -161,15 +161,14 @@ def bayes_filter(bel_x, z,step):
 
 #the robot_localization function initializes the robot's belief of its initial position and sets what features it can detect
 #the robot_localization function also runs the function bayes_filter 
-def robot_localization():
-    sense=["door","wall"]
+def robot_localization(t):
+    sense=["door","wall","door","wall"]
     bel_x=[{"p0":0.25,"p1":0.25,"p2":0.25,"p3":0.25}]
     #state_trans_prob,bel_bar,η_dict,step_dict,new_bel,sense=0
 
    
-    for step in range(2):
+    for step in range(t):
         #bayes_filter function returns a new belief of where the robot thinks it's at 
         bel=bayes_filter(bel_x[step],sense[step],step)
         bel_x.append(bel)
-        
-robot_localization()
+robot_localization(3)
